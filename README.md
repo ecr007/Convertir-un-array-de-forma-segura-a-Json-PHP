@@ -1,6 +1,5 @@
 # Convertir-un-array-de-forma-segura-a-Json-PHP
 
-
 ```php
 /**
  * 
@@ -50,5 +49,13 @@ function safe_json_encode($value, $options = 0, $depth = 512, $utfErrorFlag = fa
 		default:
 			return 'Unknown error'; // or trigger_error() or throw new Exception()
 	}
+}
+```
+
+## Funcion para sanear json
+
+```php
+static function json($data){
+	return preg_replace("/\\\\u([a-f0-9]{4})/e", "iconv('UCS-4LE','UTF-8',pack('V', hexdec('U$1')))", json_encode($data));
 }
 ```
